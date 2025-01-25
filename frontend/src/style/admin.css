@@ -1,0 +1,34 @@
+.container-dashboard{
+    display: flex;
+    height: 100vh;
+}
+
+.container-dashboard .nav-flex{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start !important;
+    width: 250px;
+}
+
+.container-dashboard .navbar{
+    align-items: flex-start !important;
+}
+
+.nav-item{
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.nav-item .nav-link {
+    color: #000;
+    font-size: 16px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.nav-item .nav-link.active {
+    color: #007bff;
+    border-left: 4px solid #007bff;
+    padding-left: 15px;
+}
