@@ -42,8 +42,8 @@ export default function Home() {
                             <td>{user.name}</td>
                             <td>{user.email}</td>
                             <td>
-                                <Link className="btn btn-info" to={{ pathname: "/edit/" + user.id }}>Edit</Link>&nbsp;
-                                <Link className="btn btn-primary" to={{ pathname: "/view/" + user.id }}>View</Link>&nbsp;
+                                <Link className="btn btn-info" to={{ pathname: "/admin/edit/" + user.id }}>Edit</Link>&nbsp;
+                                <Link className="btn btn-primary" to={{ pathname: "/admin/view/" + user.id }}>View</Link>&nbsp;
                                 <button type="button" className="btn btn-danger"
                                     onClick={()=>{deleteUser(user.id)}}
                                     >Delete</button>
