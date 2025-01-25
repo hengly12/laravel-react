@@ -36,6 +36,7 @@ export default function Home() {
                         <th>Price</th>
                         <th>Stock</th>
                         <th>Image</th>
+                        <th>Status</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -45,7 +46,7 @@ export default function Home() {
                             <td>{++index}</td>
                             <td>{product.name}</td>
                             <td>{product.description}</td>
-                            <td>{product.price}</td>
+                            <td>{product.price} $</td>
                             <td>{product.stock}</td>
                             <td>
                                 {product.image ? (
@@ -58,6 +59,7 @@ export default function Home() {
                                     <span>No Image</span>
                                 )}
                             </td>
+                            <td>{product.status ? 'Active' : 'Inactive'}</td>
                             <td>
                                 <Link className="btn btn-info" to={{ pathname: "/edit-product/" + product.id }}>Edit</Link>&nbsp;
                                 <Link className="btn btn-primary" to={{ pathname: "/view-product/" + product.id }}>View</Link>&nbsp;
