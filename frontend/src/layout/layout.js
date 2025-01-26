@@ -65,7 +65,6 @@ function AdminLayout() {
               style={{ width: '40px', height: '40px', objectFit: 'cover', marginRight: '10px' }}
             />
           ) : (
-            // Fallback for when profilePic is unavailable
             <div
               className="rounded-circle bg-secondary d-flex justify-content-center align-items-center"
               style={{ width: '40px', height: '40px', marginRight: '10px' }}
@@ -74,10 +73,8 @@ function AdminLayout() {
             </div>
           )}
 
-          {/* User's Name */}
           <span className="text-light me-3">{user?.name || 'Profile'}</span>
 
-          {/* Logout Button */}
           <button
             className="btn btn-outline-light"
             onClick={handleLogout}

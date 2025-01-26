@@ -1,41 +1,36 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { ShoppingCart } from 'lucide-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-const initialProducts = [
-  { 
-    id: 1, 
-    name: 'Stylish Sneakers', 
-    price: 79.99, 
-    image: '/api/placeholder/300/300', 
-    description: 'Comfortable and trendy sneakers for everyday wear' 
-  },
-  { 
-    id: 2, 
-    name: 'Leather Jacket', 
-    price: 129.99, 
-    image: '/api/placeholder/300/300', 
-    description: 'Classic leather jacket with modern design' 
-  },
-  { 
-    id: 3, 
-    name: 'Designer Sunglasses', 
-    price: 99.50, 
-    image: '/api/placeholder/300/300', 
-    description: 'Stylish sunglasses with UV protection' 
-  }
-];
+import http from "../http";
+import { Link } from 'react-router-dom'; 
 
 const HomePage = () => {
-  const [cart, setCart] = useState([]);
-  const [products] = useState(initialProducts);
+  const [cart, setCart] = useState([]); 
+  const [products, setProducts] = useState([]); 
+  const [isLoading, setIsLoading] = useState(true); 
+
+  useEffect(() => {
+    fetchAllProduct();
+  }, []);
+
+  const fetchAllProduct = () => {
+    setIsLoading(true);
+    http.get('/product')
+      .then(res => {
+        setProducts(res.data);
+        setIsLoading(false);
+      })
+      .catch(error => {
+        console.error("Error fetching products:", error);
+        setIsLoading(false);
+      });
+  };
 
   const addToCart = (product) => {
     const existingProduct = cart.find(item => item.id === product.id);
-    
     if (existingProduct) {
-      setCart(cart.map(item => 
-        item.id === product.id 
+      setCart(cart.map(item =>
+        item.id === product.id
           ? { ...item, quantity: item.quantity + 1 }
           : item
       ));
@@ -49,20 +44,24 @@ const HomePage = () => {
   };
 
   const totalCartItems = cart.reduce((total, item) => total + item.quantity, 0);
+
   const totalCartValue = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+
+  if (isLoading) {
+    return (
+      <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+        <div className="spinner-border text-primary" role="status"></div>
+      </div>
+    );
+  }
 
   return (
     <div className="container-fluid py-5">
-      {/* Header with Cart */}
       <header className="d-flex justify-content-between align-items-center mb-4">
         <h1 className="text-primary">Our Products</h1>
         <div className="position-relative">
-          <button
-            className="btn btn-outline-primary"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#cartSidebar"
-          >
+        <Link to="/product-detail" state={{ cart }}>
+          <button className="btn btn-outline-primary">
             <ShoppingCart size={24} />
             {totalCartItems > 0 && (
               <span className="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger">
@@ -70,25 +69,29 @@ const HomePage = () => {
               </span>
             )}
           </button>
+        </Link>
         </div>
       </header>
 
-      {/* Product Grid */}
       <div className="row g-4">
         {products.map((product) => (
           <div key={product.id} className="col-12 col-md-4">
             <div className="card h-100 shadow-sm">
-              <img 
-                src={product.image} 
-                alt={product.name} 
-                className="card-img-top" 
-              />
+              {product.image ? (
+                <img
+                  src={`http://localhost:8000${product.image}`}
+                  alt={product.name}
+                  style={{ width: 100, height: 100, objectFit: 'cover' }}
+                />
+              ) : (
+                <span>No Image</span>
+              )}
               <div className="card-body">
                 <h5 className="card-title">{product.name}</h5>
                 <p className="card-text text-muted">{product.description}</p>
                 <div className="d-flex justify-content-between align-items-center">
-                  <span className="text-primary fw-bold">${product.price.toFixed(2)}</span>
-                  <button 
+                  <span className="text-primary fw-bold">${product.price}</span>
+                  <button
                     onClick={() => addToCart(product)}
                     className="btn btn-primary"
                   >
@@ -101,19 +104,18 @@ const HomePage = () => {
         ))}
       </div>
 
-      {/* Cart Sidebar */}
-      <div 
-        className="offcanvas offcanvas-end" 
-        tabIndex="-1" 
-        id="cartSidebar" 
+      <div
+        className="offcanvas offcanvas-end"
+        tabIndex="-1"
+        id="cartSidebar"
         aria-labelledby="cartSidebarLabel"
       >
         <div className="offcanvas-header">
           <h5 id="cartSidebarLabel" className="offcanvas-title">Shopping Cart</h5>
-          <button 
-            type="button" 
-            className="btn-close" 
-            data-bs-dismiss="offcanvas" 
+          <button
+            type="button"
+            className="btn-close"
+            data-bs-dismiss="offcanvas"
             aria-label="Close"
           ></button>
         </div>
@@ -127,7 +129,7 @@ const HomePage = () => {
                     <small>Quantity: {item.quantity}</small>
                     <p className="mb-0 text-muted">${(item.price * item.quantity).toFixed(2)}</p>
                   </div>
-                  <button 
+                  <button
                     onClick={() => removeFromCart(item.id)}
                     className="btn btn-sm btn-danger"
                   >

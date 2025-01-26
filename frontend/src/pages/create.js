@@ -16,6 +16,14 @@ export default function CreateUser() {
         setInputs(prev => ({ ...prev, [name]: value }));
     };
 
+    const resetForm = () => {
+        setInputs({
+            name: '',
+            email: '',
+            password: ''
+        });
+    };
+
     const validateForm = () => {
         const newErrors = {};
         if (!inputs.name) newErrors.name = "Name is required";
@@ -31,7 +39,8 @@ export default function CreateUser() {
 
         http.post('/users', inputs)
             .then(() => {
-                navigate('admin/user-listing');
+                alert("User created successfully");
+                resetForm();
             })
             .catch((error) => {
                 const serverErrors = error.response?.data?.errors;

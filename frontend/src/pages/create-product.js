@@ -52,6 +52,19 @@ export default function CreateProduct() {
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
+    
+    const resetForm = () => {  
+        setInputs({  
+            name: '',  
+            description: '',  
+            price: '',  
+            stock: '',  
+            category_id: '',  
+            image: '',  
+            status: 'true',  
+        });  
+        setImagePreview(null);
+    }
 
     const submitForm = () => {
         if (!validateForm()) return;
@@ -66,7 +79,8 @@ export default function CreateProduct() {
 
         http.post('/product', formattedInputs)
             .then(() => {
-                navigate('admin/listing-product');
+                alert('Product created successfully.');
+                resetForm();
             })
             .catch((error) => {
                 alert(`Error: ${error.response?.data?.message || 'Product creation failed.'}`);

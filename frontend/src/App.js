@@ -17,12 +17,14 @@ import EditProduct from './pages/edit-product';
 import ViewProduct from './pages/view-product';
 import Login from './auth/login';
 import PrivateRoute from './auth/private-route';
+import ProductDetailPage from './components/product-detail';
 
 function App() {
   return (
     <Router>
     <Routes>
       <Route path="/" element={<HomePage />} />
+      <Route path="/product-detail" element={<ProductDetailPage />} />
       <Route path="/login" element={<Login />} />
       
       <Route path="/admin" element={<PrivateRoute />}>
@@ -43,70 +45,3 @@ function App() {
 }
 
 export default App;
-
-
-
-// import React from 'react';
-// import { Routes, Route, Link, Navigate } from "react-router-dom";
-// import Home from './pages/home';
-// import Create from './pages/create';
-// import Edit from './pages/edit';
-// import View from './pages/view';
-// import Product from './pages/create-product';
-// import ListingProduct from './pages/listing-product';
-// import Login from './auth/login';
-// import PrivateRoute from './auth/private-route';
-
-// function App() {
-//   return (
-//     <div>
-//       <nav className='navbar navbar-expand navbar-dark bg-dark'>
-//         <div className='navbar-nav mr-auto'>
-//           <li className='nav-item'>
-//             <Link to={"/"} className="nav-link">Home</Link>
-//           </li>
-//           <li className='nav-item'>
-//             <Link to={"/login"} className="nav-link">Login</Link>
-//           </li>
-//           <li className='nav-item'>
-//             <Link to={"/create"} className="nav-link">Create</Link>
-//           </li>
-//           <li className='nav-item'>
-//             <Link to={"/listing-product"} className="nav-link">Listing Product</Link>
-//           </li>
-//           <li className='nav-item'>
-//             <Link to={"/product"} className="nav-link">Create Product</Link>
-//           </li>
-//         </div>
-//       </nav>
-//       <div className='container'>
-//         <Routes>
-//           <Route path='/login' element={<Login />} />
-//           <Route path='/' element={<Home />} />
-//           <Route 
-//             path='/create' 
-//             element={<PrivateRoute><Create /></PrivateRoute>} 
-//           />
-//           <Route 
-//             path='/product' 
-//             element={<PrivateRoute><Product /></PrivateRoute>} 
-//           />
-//           <Route 
-//             path='/listing-product' 
-//             element={<PrivateRoute><ListingProduct /></PrivateRoute>} 
-//           />
-//           <Route 
-//             path='/edit/:id' 
-//             element={<PrivateRoute><Edit /></PrivateRoute>} 
-//           />
-//           <Route 
-//             path='/view/:id' 
-//             element={<PrivateRoute><View /></PrivateRoute>} 
-//           />
-//         </Routes>
-//       </div>
-//     </div>
-//   );
-// }
-
-// export default App;
