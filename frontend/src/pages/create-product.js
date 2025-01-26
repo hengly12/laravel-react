@@ -66,7 +66,7 @@ export default function CreateProduct() {
 
         http.post('/product', formattedInputs)
             .then(() => {
-                navigate('/listing-product');
+                navigate('admin/listing-product');
             })
             .catch((error) => {
                 alert(`Error: ${error.response?.data?.message || 'Product creation failed.'}`);

@@ -15,16 +15,18 @@ import Product from './pages/create-product';
 import ListingProduct from './pages/listing-product';
 import EditProduct from './pages/edit-product';
 import ViewProduct from './pages/view-product';
+import Login from './auth/login';
+import PrivateRoute from './auth/private-route';
 
 function App() {
   return (
     <Router>
-      <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<HomePage />} />
-
-        {/* Admin Routes */}
-        <Route path="/admin" element={<AdminLayout />}>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/login" element={<Login />} />
+      
+      <Route path="/admin" element={<PrivateRoute />}>
+        <Route element={<AdminLayout />}>
           <Route path="user-listing" element={<Home />} />
           <Route path="create-user" element={<Create />} />
           <Route path="product" element={<Product />} />
@@ -34,8 +36,9 @@ function App() {
           <Route path="edit/:id" element={<Edit />} />
           <Route path="view/:id" element={<View />} />
         </Route>
-      </Routes>
-    </Router>
+      </Route>
+    </Routes>
+  </Router>
   );
 }
 

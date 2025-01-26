@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import '../style/login.css'
 import http from '../http';
 
 export default function Login() {
@@ -10,9 +11,17 @@ export default function Login() {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
+    // Redirect if already logged in
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            navigate('/admin/listing-product'); // Redirect to admin area
+        }
+    }, [navigate]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setInputs(prev => ({ ...prev, [name]: value }));
+        setInputs((prev) => ({ ...prev, [name]: value }));
     };
 
     const handleLogin = async (e) => {
@@ -26,13 +35,11 @@ export default function Login() {
 
         try {
             const res = await http.post('/login', inputs);
-            
-            // Store authentication details
+
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('user', JSON.stringify(res.data.user));
 
-            // Redirect to protected route
-            navigate('/listing-product');
+            navigate('/admin/listing-product'); // Redirect after successful login
         } catch (err) {
             const errorMsg = err.response?.data?.message || 'Login failed';
             setError(errorMsg);
@@ -40,7 +47,7 @@ export default function Login() {
     };
 
     return (
-        <div className="container mt-5">
+        <div className="container mt-5 container-login">
             <h2>Login</h2>
             <form onSubmit={handleLogin}>
                 {error && <div className="alert alert-danger">{error}</div>}

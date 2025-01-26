@@ -9,18 +9,21 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        $credentials = $request->only('email', 'password');
-
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+    
         if (Auth::attempt($credentials)) {
             $user = Auth::user();
-            $token = $user->createToken('AuthToken')->plainTextToken;
-
+            $token = $user->createToken('AuthToken', [])->plainTextToken;
+    
             return response()->json([
                 'user' => $user,
                 'token' => $token
             ]);
         }
-
+    
         return response()->json(['message' => 'Invalid credentials'], 401);
     }
 }

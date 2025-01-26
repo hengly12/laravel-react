@@ -31,7 +31,7 @@ export default function CreateUser() {
 
         http.post('/users', inputs)
             .then(() => {
-                navigate('/user-listing');
+                navigate('admin/user-listing');
             })
             .catch((error) => {
                 const serverErrors = error.response?.data?.errors;
