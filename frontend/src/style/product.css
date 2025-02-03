@@ -1,0 +1,30 @@
+.img-product{
+    width: 100% !important;
+}
+
+.img-product img{
+    width: 100% !important;
+    height: 120px !important;
+    object-fit: contain !important;
+    padding: 10px;
+}
+.position-relatives{
+    background: linear-gradient(135deg, #9447e7, #62e0c6b8);
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    position: relative;
+}
+.container-fluid{
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+.d-flex{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.row {
+    margin: 0 !important;
+}
