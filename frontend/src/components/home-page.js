@@ -8,6 +8,7 @@ import 'swiper/css';
 import 'swiper/css/autoplay';
 import 'swiper/css/navigation';
 import { Autoplay, Navigation } from 'swiper/modules';
+import '../style/home.css';
 const HomePage = () => {
   const [cart, setCart] = useState([]); 
   const [products, setProducts] = useState([]); 
@@ -84,7 +85,7 @@ const HomePage = () => {
           onClick={() => swiperRef.current?.slidePrev()}
           style={{ zIndex: 10 }}
         >
-          ◀
+          <i class="fa-solid fa-arrow-left"></i>
         </button>
 
         <Swiper
@@ -130,10 +131,42 @@ const HomePage = () => {
           onClick={() => swiperRef.current?.slideNext()}
           style={{ zIndex: 10 }}
         >
-          ▶
+          <i class="fa-solid fa-arrow-right"></i>
         </button>
       </div>
-      <div className="row g-4">
+
+      <div className="container">
+        <div className="hero-section">
+            <div className="left-content">
+                <h1>ALL YOUR ECOMMERCE BUSINESS IN ONE PLATFORM</h1>
+                <p className="description">Transform your business with our comprehensive ecommerce solution. Manage inventory, process orders, and grow your online presence seamlessly. Start selling in minutes.</p>
+                <a  className="cta-button">
+                    Get Started
+                    <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                    </svg>
+                </a>
+                <p className="already-started">
+                    Already started? <a>Complete your setup</a>
+                </p>
+            </div>
+            <div className="feature-card">
+                <h2 className="feature-title">Why Choose Our Ecommerce Platform?</h2>
+                <div className="feature-text">
+                    <p>In today's digital age, having a robust ecommerce platform is essential for business success. Our platform offers everything you need to thrive in the online marketplace:</p>
+                    <br/>
+                    <p>• Integrated payment solutions with multiple gateway options</p>
+                    <p>• Smart inventory management system with real-time tracking</p>
+                    <p>• Advanced analytics and sales reporting</p>
+                    <p>• Mobile-responsive storefront templates</p>
+                    <p>• Automated order processing and fulfillment</p>
+                    <br/>
+                    <p>Our platform is designed to scale with your business, whether you're just starting out or managing multiple online stores. With built-in SEO tools, marketing integrations, and customer relationship management features, we provide everything you need to grow your online presence and increase sales.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+      <div className="row g-4 cc-row">
         {products.map((product) => (
           <div key={product.id} className="col-12 col-md-4">
             <div className="card h-100 shadow-sm img-product">
@@ -207,8 +240,31 @@ const HomePage = () => {
           )}
         </div>
       </div>
+
+      
+    <div className="container-3">
+      <div className="left-section">
+          <h1>
+              Transform Your Business with <br/> E-commerce
+
+          </h1>
+          <p className="description">
+              Explore a curated selection of homes that fit your lifestyle and preferences.
+          </p>
+          <a className="cta-button">
+              View Properties
+              <svg width="16" height="16" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+              </svg>
+          </a>
+   
+          </div>
+          <div className="right-section">
+              <img src="../assets/pc-2.png" alt="Featured Property"/>
+          </div>
+      </div>
     </div>
-  );
+);
 };
 
 export default HomePage;
