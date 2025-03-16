@@ -22,6 +22,10 @@
     margin-bottom: 20px;
 }
 
+.none-margin{
+    margin: 0 !important;
+}
+
 .form-label {
     font-size: 14px;
     color: #555;

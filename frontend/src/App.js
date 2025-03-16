@@ -18,29 +18,39 @@ import ViewProduct from './pages/view-product';
 import Login from './auth/login';
 import PrivateRoute from './auth/private-route';
 import ProductDetailPage from './components/product-detail';
+import Shop from './components/shop';
+import Register from './components/register-user';
+import LoginUser from './components/login-user';
+import { AuthProvider } from './context/AuthContext';
 
 function App() {
   return (
-    <Router>
-    <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/product-detail" element={<ProductDetailPage />} />
-      <Route path="/login" element={<Login />} />
-      
-      <Route path="/admin" element={<PrivateRoute />}>
-        <Route element={<AdminLayout />}>
-          <Route path="user-listing" element={<Home />} />
-          <Route path="create-user" element={<Create />} />
-          <Route path="product" element={<Product />} />
-          <Route path="listing-product" element={<ListingProduct />} />
-          <Route path="edit-product/:id" element={<EditProduct />} />
-          <Route path="view-product/:id" element={<ViewProduct />} />
-          <Route path="edit/:id" element={<Edit />} />
-          <Route path="view/:id" element={<View />} />
-        </Route>
-      </Route>
-    </Routes>
-  </Router>
+    <AuthProvider>
+      <Router>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/product-detail" element={<ProductDetailPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="shop" element={<Shop />} />
+            <Route path="register" element={<Register />} />
+            <Route path="login-user" element={<LoginUser />} />
+            <Route path="/product/:id" element={<ViewProduct />} />
+            <Route path="/admin" element={<PrivateRoute />}>
+              <Route element={<AdminLayout />}>
+                <Route path="user-listing" element={<Home />} />
+                <Route path="create-user" element={<Create />} />
+                <Route path="product" element={<Product />} />
+                <Route path="listing-product" element={<ListingProduct />} />
+                <Route path="edit-product/:id" element={<EditProduct />} />
+                <Route path="view-product/:id" element={<ViewProduct />} />
+                <Route path="edit/:id" element={<Edit />} />
+                <Route path="view/:id" element={<View />} />
+              </Route>
+            </Route>
+          </Routes>
+        </Router>
+    </AuthProvider>
+   
   );
 }
 
