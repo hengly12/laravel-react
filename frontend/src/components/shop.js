@@ -11,7 +11,7 @@ const ShopPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const navigate = useNavigate();
   const { user } = useAuth(); 
-  
+
   const handleAddToCart = (e, product) => {
     e.preventDefault(); 
     if (user) {
