@@ -1,6 +1,5 @@
-// src/components/header.js
 import React, { useState, useRef, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { ShoppingCart, LogOut, User, Settings, LogIn } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
@@ -9,6 +8,7 @@ const Header = ({ cart, totalCartItems }) => {
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const profileMenuRef = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation(); 
 
   const toggleProfileMenu = () => {
     setIsProfileMenuOpen(!isProfileMenuOpen);
@@ -30,7 +30,7 @@ const Header = ({ cart, totalCartItems }) => {
   const handleLogout = () => {
     logout();
     setIsProfileMenuOpen(false);
-    navigate('/login-user');
+    navigate('/');
   };
   
   const getInitial = () => {
@@ -42,16 +42,21 @@ const Header = ({ cart, totalCartItems }) => {
       return user.email.charAt(0).toUpperCase();
     }
     
-    return 'U'; // Unknown
+    return 'U'; 
   };
 
+  const isActive = (path) => {
+    return location.pathname === path;
+  };
+
+
   return (
-    <header className="d-flex justify-content-between align-items-center mb-4 sha">
+    <header className="d-flex justify-content-between align-items-center sha">
       <h1 className="text-primary">Shop</h1>
       <div className='d-flex gap-4'>
-        <Link to="/" className="">Home</Link>
-        <Link to="/shop" className="">Shop</Link>
-        <Link to="/contact" className="">Contact</Link>
+        <Link to="/" className={`header-txt ${isActive('/') ? 'active' : ''}`}>Home</Link>
+        <Link to="/shop"  className={`header-txt ${isActive('/shop') ? 'active' : ''}`}>Shop</Link>
+        <Link to="/contact" className={`header-txt ${isActive('/contact') ? 'active' : ''}`}>Contact</Link>
       </div>
       <div className="position-relative d-flex align-items-center gap-3">
         <Link to="/product-detail" state={{ cart }}>
@@ -84,19 +89,10 @@ const Header = ({ cart, totalCartItems }) => {
                 style={{ minWidth: '180px', right: 0, top: '100%' }}>
               <div className="py-1">
                 {user ? (
-                  // Logged in user options
                   <>
                     <div className="px-4 py-2 text-sm font-medium border-bottom">
                       {user.name || user.email}
                     </div>
-                    <Link to="/profile" className="d-flex align-items-center px-4 py-2 text-sm text-gray-700 hover-bg-gray-100">
-                      <User size={16} className="me-2" />
-                      <span>My Profile</span>
-                    </Link>
-                    <Link to="/settings" className="d-flex align-items-center px-4 py-2 text-sm text-gray-700 hover-bg-gray-100">
-                      <Settings size={16} className="me-2" />
-                      <span>Settings</span>
-                    </Link>
                     <hr className="my-1" />
                     <button 
                       onClick={handleLogout} 
@@ -107,7 +103,6 @@ const Header = ({ cart, totalCartItems }) => {
                     </button>
                   </>
                 ) : (
-                  // Guest options
                   <>
                     <Link to="/login-user" className="d-flex align-items-center px-4 py-2 text-sm text-gray-700 hover-bg-gray-100">
                       <LogIn size={16} className="me-2" />

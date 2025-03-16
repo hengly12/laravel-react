@@ -1,17 +1,30 @@
 import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate  } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import 'swiper/css/navigation';
 import { Autoplay, Navigation } from 'swiper/modules';
+import '../style/home.css';
+import { useAuth } from '../context/AuthContext';
 
 const HomeContent = ({ products, addToCart }) => {
   const swiperRef = useRef(null);
+  const navigate = useNavigate();
+  const { user } = useAuth(); 
+  
+  const handleAddToCart = (e, product) => {
+    e.preventDefault(); 
+    if (user) {
+      addToCart(product);
+    } else {
+      navigate('/login-user');
+    }
+  };
 
   return (
     <div className="content-area">
-      <div className="position-relatives">
+      <div className="position-relatives back-img">
         <button
           className="btn btn-primary position-absolute start-0 top-50 translate-middle-y z-3"
           onClick={() => swiperRef.current?.slidePrev()}
@@ -118,10 +131,7 @@ const HomeContent = ({ products, addToCart }) => {
                 <div className="d-flex justify-content-between align-items-center">
                   <span className="text-primary fw-bold">${product.price}</span>
                   <button
-                    onClick={(e) => {
-                      e.preventDefault(); // Prevent Link navigation
-                      addToCart(product);
-                    }}
+                      onClick={(e) => handleAddToCart(e, product)}
                     className="btn btn-primary"
                   >
                     Add to Cart

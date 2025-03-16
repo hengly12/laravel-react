@@ -4,12 +4,12 @@
 
 .img-product img{
     width: 100% !important;
-    height: 120px !important;
-    object-fit: contain !important;
+    height: 250px !important;
+    object-fit: cover !important;
     padding: 10px;
+    border-radius: 15px;
 }
 .position-relatives{
-    background: linear-gradient(135deg, #9447e7, #62e0c6b8);
     height: 50vh;
     display: flex;
     align-items: center;
