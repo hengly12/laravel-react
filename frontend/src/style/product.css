@@ -1,10 +1,11 @@
 .img-product{
     width: 100% !important;
+    box-shadow: 0px 2px 5px 1px rgba(0, 0, 0, 0.1) !important;
 }
 
 .img-product img{
     width: 100% !important;
-    height: 250px !important;
+    height: 365px !important;
     object-fit: cover !important;
     padding: 10px;
     border-radius: 15px;
@@ -21,7 +22,4 @@
     padding-left: 0 !important;
     padding-right: 0 !important;
 }
-.d-flex{
-    padding-left: 15px;
-    padding-right: 15px;
-}
+

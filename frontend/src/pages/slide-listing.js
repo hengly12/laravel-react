@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import http from "../http"
 import { Link } from "react-router-dom";
 
-export default function ListingProduct() {
+export default function SlideListing() {
     const [products, setProducts] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -12,7 +12,7 @@ export default function ListingProduct() {
 
     const fetchAllProduct = () => {
         setIsLoading(true);
-        http.get('/product')
+        http.get('/slides')
             .then(res => {
                 setProducts(res.data);
                 setIsLoading(false);
@@ -24,7 +24,7 @@ export default function ListingProduct() {
     }
 
     const deleteProduct = (id) => {
-        http.delete('/product/' + id).then(res => {
+        http.delete('/slides/' + id).then(res => {
             fetchAllProduct();
         })
     }
@@ -40,9 +40,9 @@ export default function ListingProduct() {
 
     return (
         <div>
-            <h2>Listing Products</h2>
+            <h2>Listing Slide</h2>
             {products.length === 0 ? (
-                <p>No products found.</p>
+                <p>No slide found.</p>
             ) : (
                 <table className="table">
                     <thead>
@@ -51,7 +51,6 @@ export default function ListingProduct() {
                             <th>Name</th>
                             <th>Description</th>
                             <th>Price</th>
-                            <th>Stock</th>
                             <th>Image</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -61,10 +60,9 @@ export default function ListingProduct() {
                         {products.map((product, index) => (
                             <tr key={product.id}>
                                 <td>{++index}</td>
-                                <td>{product.name}</td>
+                                <td>{product.title}</td>
                                 <td>{product.description}</td>
-                                <td>{product.price} $</td>
-                                <td>{product.stock}</td>
+                                <td>{product.order} $</td>
                                 <td>
                                     {product.image ? (
                                         <img 
@@ -78,8 +76,8 @@ export default function ListingProduct() {
                                 </td>
                                 <td>{product.status ? 'Active' : 'Inactive'}</td>
                                 <td>
-                                    <Link className="btn btn-info" to={{ pathname: "/admin/edit-product/" + product.id }}>Edit</Link>&nbsp;
-                                    <Link className="btn btn-primary" to={{ pathname: "/admin/view-product/" + product.id }}>View</Link>&nbsp;
+                                    {/* <Link className="btn btn-info" to={{ pathname: "/admin/edit-product/" + product.id }}>Edit</Link>&nbsp;
+                                    <Link className="btn btn-primary" to={{ pathname: "/admin/view-product/" + product.id }}>View</Link>&nbsp; */}
                                     <button type="button" className="btn btn-danger"
                                         onClick={() => { deleteProduct(product.id) }}
                                     >Delete</button>

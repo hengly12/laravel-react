@@ -10,10 +10,12 @@ import HomeContent from '../components/content';
 const HomePage = () => {
   const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
+  const [slides, setSlides] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchAllProduct();
+    fetchAllSlide();
   }, []);
 
   const fetchAllProduct = () => {
@@ -21,6 +23,19 @@ const HomePage = () => {
     http.get('/product')
       .then(res => {
         setProducts(res.data);
+        setIsLoading(false);
+      })
+      .catch(error => {
+        console.error("Error fetching products:", error);
+        setIsLoading(false);
+      });
+  };
+
+  const fetchAllSlide = () => {
+    setIsLoading(true);
+    http.get('/slides')
+      .then(res => {
+        setSlides(res.data);
         setIsLoading(false);
       })
       .catch(error => {
@@ -66,6 +81,7 @@ const HomePage = () => {
       
       <HomeContent
         products={products}
+        slides = {slides}
         addToCart={addToCart}
       />
       

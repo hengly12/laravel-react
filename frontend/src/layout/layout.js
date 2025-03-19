@@ -22,6 +22,22 @@ function AdminLayout() {
       <nav className="navbar navbar-expand navbar-dark bg-dark">
         <div className="navbar-nav mr-auto nav-flex fl-pf">
           <div className='nav-fl'>
+          <li className="nav-item">
+              <NavLink
+                to="/admin/slide-listing"
+                className={({ isActive }) => `nav-item nav-link ${isActive ? 'active' : ''}`}
+              >
+                Slide Listing
+              </NavLink>
+            </li>
+          <li className="nav-item">
+              <NavLink
+                to="/admin/create-slide"
+                className={({ isActive }) => `nav-item nav-link ${isActive ? 'active' : ''}`}
+              >
+                Create Slide
+              </NavLink>
+            </li>
             <li className="nav-item">
               <NavLink
                 to="/admin/listing-product"
@@ -43,7 +59,7 @@ function AdminLayout() {
                 to="/admin/user-listing"
                 className={({ isActive }) => `nav-item nav-link ${isActive ? 'active' : ''}`}
               >
-                User
+                User Listing
               </NavLink>
             </li>
             <li className="nav-item">

@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SlideController;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\AuthController;
 
@@ -24,5 +25,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('users',UserController::class);
 Route::resource('product',ProductController::class);
+Route::resource('slides', SlideController::class);
 Route::post('/upload-image', [ProductController::class, 'uploadImage']);
 Route::post('/login', [AuthController::class, 'login']);

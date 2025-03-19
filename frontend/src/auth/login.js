@@ -15,7 +15,7 @@ export default function Login() {
     useEffect(() => {
         const token = localStorage.getItem('token');
         if (token) {
-            navigate('/admin/listing-product'); // Redirect to admin area
+            navigate('/admin/slide-listing'); // Redirect to admin area
         }
     }, [navigate]);
 
@@ -39,7 +39,7 @@ export default function Login() {
             localStorage.setItem('token', res.data.token);
             localStorage.setItem('user', JSON.stringify(res.data.user));
 
-            navigate('/admin/listing-product'); // Redirect after successful login
+            navigate('/admin/slide-listing'); // Redirect after successful login
         } catch (err) {
             const errorMsg = err.response?.data?.message || 'Login failed';
             setError(errorMsg);

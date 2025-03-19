@@ -8,7 +8,7 @@ import { Autoplay, Navigation } from 'swiper/modules';
 import '../style/home.css';
 import { useAuth } from '../context/AuthContext';
 
-const HomeContent = ({ products, addToCart }) => {
+const HomeContent = ({ products,slides, addToCart }) => {
   const swiperRef = useRef(null);
   const navigate = useNavigate();
   const { user } = useAuth(); 
@@ -36,34 +36,31 @@ const HomeContent = ({ products, addToCart }) => {
         <Swiper
           modules={[Autoplay, Navigation]}
           spaceBetween={20}
-          slidesPerView={3}
+          slidesPerView={1}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
           loop={true}
           onSwiper={(swiper) => (swiperRef.current = swiper)}
         >
-          {products.map((product) => (
-            <SwiperSlide key={product.id}>
-              <div className="card h-100 shadow-sm img-product">
-                {product.image ? (
-                  <img
-                    src={`http://localhost:8000${product.image}`}
-                    alt={product.name}
+          {slides.map((item) => (
+            <SwiperSlide key={item.id}>
+              <div className="card h-100 shadow-sm img-item flex-slide">
+                {item.image ? (
+                 <div className='image-slide'>
+                   <img
+                    src={`http://localhost:8000${item.image}`}
+                    alt={item.name}
                     style={{ width: '100%', height: 150, objectFit: 'cover' }}
                   />
+                  </div>
                 ) : (
                   <span>No Image</span>
                 )}
-                <div className="card-body">
-                  <h5 className="card-title">{product.name}</h5>
-                  <p className="card-text text-muted">{product.description}</p>
+                <div className="card-body desc-slide">
+                  <h5 className="card-title title-slide">{item.title}</h5>
+                  <p className='slide-desc'>{item.description}</p>
                   <div className="d-flex justify-content-between align-items-center">
-                    <span className="text-primary fw-bold">${product.price}</span>
-                    <button
-                      onClick={() => addToCart(product)}
-                      className="btn btn-primary"
-                    >
-                      Add to Cart
-                    </button>
+                    <span className="text-primary fw-bold price-slide">${item.order}</span>
+             
                   </div>
                 </div>
               </div>
