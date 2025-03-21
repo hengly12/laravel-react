@@ -69,10 +69,10 @@ const ShopPage = () => {
       />
       <div className="center-content">
         <div className="shop-content py-4">
-          <h2 className="mb-4">Shop All Products</h2>
-          <div className="row g-4">
+          <h2 className="mb-4">Products</h2>
+          <div className="row g-4 gap">
             {products.map((product) => (
-              <div key={product.id} className="col-12 col-md-4 col-lg-3">
+              <div key={product.id} className="col-12 col-md-4 col-lg-3 sha">
                 <div className="card h-100 shadow-sm">
                   {product.image ? (
                     <img

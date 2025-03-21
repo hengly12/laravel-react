@@ -24,57 +24,59 @@ const HomeContent = ({ products,slides, addToCart }) => {
 
   return (
     <div className="content-area">
-      <div className="position-relatives back-img">
-        <button
-          className="btn btn-primary position-absolute start-0 top-50 translate-middle-y z-3"
-          onClick={() => swiperRef.current?.slidePrev()}
-          style={{ zIndex: 10 }}
-        >
-          <i className="fa-solid fa-arrow-left"></i>
-        </button>
+            <div className='slide-content'>
+          <div className="position-relatives back-img">
+            <button
+              className="btn btn-primary position-absolute start-0 top-50 translate-middle-y z-3"
+              onClick={() => swiperRef.current?.slidePrev()}
+              style={{ zIndex: 10 }}
+            >
+              <i className="fa-solid fa-arrow-left"></i>
+            </button>
 
-        <Swiper
-          modules={[Autoplay, Navigation]}
-          spaceBetween={20}
-          slidesPerView={1}
-          autoplay={{ delay: 3000, disableOnInteraction: false }}
-          loop={true}
-          onSwiper={(swiper) => (swiperRef.current = swiper)}
-        >
-          {slides.map((item) => (
-            <SwiperSlide key={item.id}>
-              <div className="card h-100 shadow-sm img-item flex-slide">
-                {item.image ? (
-                 <div className='image-slide'>
-                   <img
-                    src={`http://localhost:8000${item.image}`}
-                    alt={item.name}
-                    style={{ width: '100%', height: 150, objectFit: 'cover' }}
-                  />
+            <Swiper
+              modules={[Autoplay, Navigation]}
+              spaceBetween={20}
+              slidesPerView={1}
+              autoplay={{ delay: 3000, disableOnInteraction: false }}
+              loop={true}
+              onSwiper={(swiper) => (swiperRef.current = swiper)}
+            >
+              {slides.map((item) => (
+                <SwiperSlide key={item.id}>
+                  <div className="card h-100 shadow-sm img-item flex-slide">
+                    {item.image ? (
+                    <div className='image-slide'>
+                      <img
+                        src={`http://localhost:8000${item.image}`}
+                        alt={item.name}
+                        style={{ width: '100%', height: 150, objectFit: 'cover' }}
+                      />
+                      </div>
+                    ) : (
+                      <span>No Image</span>
+                    )}
+                    <div className="card-body desc-slide">
+                      <h5 className="card-title title-slide">{item.title}</h5>
+                      <p className='slide-desc'>{item.description}</p>
+                      <div className="d-flex justify-content-between align-items-center">
+                        <span className="text-primary fw-bold price-slide">${item.order}</span>
+                
+                      </div>
+                    </div>
                   </div>
-                ) : (
-                  <span>No Image</span>
-                )}
-                <div className="card-body desc-slide">
-                  <h5 className="card-title title-slide">{item.title}</h5>
-                  <p className='slide-desc'>{item.description}</p>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <span className="text-primary fw-bold price-slide">${item.order}</span>
-             
-                  </div>
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+                </SwiperSlide>
+              ))}
+            </Swiper>
 
-        <button
-          className="btn btn-primary position-absolute end-0 top-50 translate-middle-y z-3"
-          onClick={() => swiperRef.current?.slideNext()}
-          style={{ zIndex: 10 }}
-        >
-          <i className="fa-solid fa-arrow-right"></i>
-        </button>
+            <button
+              className="btn btn-primary position-absolute end-0 top-50 translate-middle-y z-3"
+              onClick={() => swiperRef.current?.slideNext()}
+              style={{ zIndex: 10 }}
+            >
+              <i className="fa-solid fa-arrow-right"></i>
+            </button>
+            </div>
       </div>
 
       <div className="container">

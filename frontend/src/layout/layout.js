@@ -72,7 +72,7 @@ function AdminLayout() {
             </li>
           </div>
 
-          <div className="profile position-relative">
+          <div className="profile position-relative pf-fl">
             {user?.profilePic ? (
             <img
               src={user.profilePic}
@@ -89,10 +89,10 @@ function AdminLayout() {
             </div>
           )}
 
-          <span className="text-light me-3">{user?.name || 'Profile'}</span>
+          <span className="text-light me-3 color-pf">{user?.name || 'Profile'}</span>
 
           <button
-            className="btn btn-outline-light"
+            className="btn btn-outline-light color-pf"
             onClick={handleLogout}
             style={{ whiteSpace: 'nowrap' }}
           >

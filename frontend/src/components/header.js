@@ -49,9 +49,30 @@ const Header = ({ cart, totalCartItems }) => {
     return location.pathname === path;
   };
 
+  const getRandomColor = () => {
+    const colors = [
+      '#EA4335', // red
+      '#4285F4', // blue
+      '#FBBC05', // yellow
+      '#34A853', // green
+      '#8E24AA', // purple
+      '#16A2D7', // teal
+      '#F06292', // pink
+      '#FF7043', // orange
+    ];
+    
+    let seed = 'Guest';
+    if (user) {
+      seed = user.name || user.email || 'User';
+    }
+    
+    const hash = seed.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    return colors[hash % colors.length];
+  };
 
   return (
-    <header className="d-flex justify-content-between align-items-center sha">
+    <div className='heder-side'>
+      <header className="d-flex justify-content-between align-items-center sha">
       <h1 className="text-primary">Shop</h1>
       <div className='d-flex gap-4'>
         <Link to="/" className={`header-txt ${isActive('/') ? 'active' : ''}`}>Home</Link>
@@ -70,15 +91,16 @@ const Header = ({ cart, totalCartItems }) => {
           </button>
         </Link>
         <div className="position-relative" ref={profileMenuRef}>
-          <div 
-            className="profile-avatar d-flex justify-content-center align-items-center bg-primary text-white rounded-circle" 
+        <div 
+            className="profile-avatar d-flex justify-content-center align-items-center text-white rounded-circle" 
             onClick={toggleProfileMenu}
             style={{ 
               cursor: 'pointer',
               width: '40px',
               height: '40px',
               fontSize: '16px',
-              fontWeight: 'bold'
+              fontWeight: 'bold',
+              backgroundColor: getRandomColor() // Using random color instead of bg-primary
             }}
           >
             {getInitial()}
@@ -120,6 +142,7 @@ const Header = ({ cart, totalCartItems }) => {
         </div>
       </div>
     </header>
+    </div>
   );
 };
 
