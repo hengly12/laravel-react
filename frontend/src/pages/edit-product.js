@@ -92,7 +92,7 @@ export default function EditProduct() {
        http.put(`/product/${id}`, formattedInputs)
            .then((res) => {
                alert("Product updated successfully!");
-               navigate('/listing-product');
+               navigate('admin/listing-product');
            })
            .catch((error) => {
                console.error("Error details:", error.response?.data);

@@ -48,7 +48,7 @@ export default function Login() {
 
     return (
         <div className="container mt-5 container-login">
-            <h2>Login</h2>
+            <h2>Admin Login</h2>
             <form onSubmit={handleLogin}>
                 {error && <div className="alert alert-danger">{error}</div>}
                 <div className="mb-3">

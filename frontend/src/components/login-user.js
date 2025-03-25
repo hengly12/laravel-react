@@ -1,10 +1,7 @@
-// src/pages/LoginPage.js
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import http from '../http';
 import { useAuth } from '../context/AuthContext';
-import Header from '../components/header';
-import Footer from '../components/footer';
 
 const LoginUser = () => {
   const [email, setEmail] = useState('');
@@ -50,7 +47,7 @@ const LoginUser = () => {
         <div className="row justify-content-center">
           <div className="col-md-6 col-lg-5">
             <div className="card shadow">
-              <div className="card-body p-5">
+              <div className="card-body p-5 box-sha">
                 <h2 className="text-center mb-4">Login</h2>
                 
                 {error && <div className="alert alert-danger">{error}</div>}
