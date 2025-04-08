@@ -78,8 +78,8 @@ export default function ListingProduct() {
                                 </td>
                                 <td>{product.status ? 'Active' : 'Inactive'}</td>
                                 <td>
-                                    <Link className="btn btn-info" to={{ pathname: "/admin/edit-product/" + product.id }}>Edit</Link>&nbsp;
-                                    <Link className="btn btn-primary" to={{ pathname: "/admin/view-product/" + product.id }}>View</Link>&nbsp;
+                                    <Link className="btn btn-info mr" to={{ pathname: "/admin/edit-product/" + product.id }}>Edit</Link>&nbsp;
+                                    {/* <Link className="btn btn-primary" to={{ pathname: "/admin/view-product/" + product.id }}>View</Link>&nbsp; */}
                                     <button type="button" className="btn btn-danger"
                                         onClick={() => { deleteProduct(product.id) }}
                                     >Delete</button>
