@@ -33,7 +33,7 @@ const HomeContent = ({ products, addToCart }) => {
               <div className="card h-100 shadow-sm img-product">
                 {product.image ? (
                   <img
-                    src={`http://localhost:8000${product.image}`}
+                    src={`http://54.252.242.180/public/${product.image}`}
                     alt={product.name}
                     style={{ width: '100%', height: 150, objectFit: 'cover' }}
                   />
@@ -105,7 +105,7 @@ const HomeContent = ({ products, addToCart }) => {
             <div className="card h-100 shadow-sm img-product">
               {product.image ? (
                 <img
-                  src={`http://localhost:8000${product.image}`}
+                  src={`http://54.252.242.180/public/${product.image}`}
                   alt={product.name}
                   style={{ width: 100, height: 100, objectFit: 'cover' }}
                 />

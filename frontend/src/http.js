@@ -9,7 +9,7 @@
 import axios from 'axios';
 
 const http = axios.create({
-    baseURL: 'http://localhost:8000/api',
+    baseURL: 'http://54.252.242.180/public/index.php/api',
 });
 
 // Request interceptor for adding token

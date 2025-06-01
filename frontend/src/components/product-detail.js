@@ -89,7 +89,7 @@ const ProductDetailPage = () => {
             <div className="d-flex align-items-center">
               {item.image ? (
                 <img
-                  src={`http://localhost:8000${item.image}`}
+                  src={`http://54.252.242.180/public/${item.image}`}
                   alt={item.name}
                   style={{ width: 100, height: 100, objectFit: 'cover' }}
                 />

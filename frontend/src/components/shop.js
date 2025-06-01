@@ -64,7 +64,7 @@ const ShopPage = () => {
               <div className="card h-100 shadow-sm">
                 {product.image ? (
                   <img
-                    src={`http://localhost:8000${product.image}`}
+                    src={`http://54.252.242.180/public/${product.image}`}
                     alt={product.name}
                     className="card-img-top"
                     style={{ height: 200, objectFit: 'cover' }}

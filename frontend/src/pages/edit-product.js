@@ -203,7 +203,7 @@ export default function EditProduct() {
                                     />
                                     {inputs.image && (
                                             <img 
-                                                src={`http://localhost:8000${inputs.image}`} 
+                                                src={`http://54.252.242.180/public/${inputs.image}`} 
                                                 alt="Product" 
                                                 style={{width: 100, marginTop: 10}} 
                                             />
