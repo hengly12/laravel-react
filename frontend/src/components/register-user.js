@@ -7,7 +7,8 @@ export default function RegisterUser() {
     const [inputs, setInputs] = useState({
         name: '',
         email: '',
-        password: ''
+        password: '',
+        role: 'user'
     });
     const [errors, setErrors] = useState({});
 
@@ -52,11 +53,11 @@ export default function RegisterUser() {
 
     return (
         <div className="container-fluid">
-            <div className="row justify-content-center">
+            <div className="row justify-content-center hei-regis">
                 <div className="col-md-6 col-lg-4">
                     <div className="card shadow-sm border-0">
-                        <div className="card-header bg-primary text-white">
-                            <h3 className="mb-0">Create New User</h3>
+                        <div className="card-header">
+                            <h3 className="mb-0">Register</h3>
                         </div>
                         <div className="card-body">
                             <form>
@@ -105,7 +106,7 @@ export default function RegisterUser() {
                                         onClick={submitForm}
                                         className="btn btn-primary btn-lg"
                                     >
-                                        Create User
+                                        Register
                                     </button>
                                 </div>
                             </form>

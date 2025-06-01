@@ -1,70 +1,82 @@
 import React, { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate  } from 'react-router-dom';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/autoplay';
 import 'swiper/css/navigation';
 import { Autoplay, Navigation } from 'swiper/modules';
+import '../style/home.css';
+import { useAuth } from '../context/AuthContext';
 
-const HomeContent = ({ products, addToCart }) => {
+const HomeContent = ({ products,slides, addToCart }) => {
   const swiperRef = useRef(null);
+  const navigate = useNavigate();
+  const { user } = useAuth(); 
+  
+  const handleAddToCart = (e, product) => {
+    e.preventDefault(); 
+    if (user) {
+      addToCart(product);
+    } else {
+      navigate('/login-user');
+    }
+  };
 
   return (
     <div className="content-area">
-      <div className="position-relatives">
-        <button
-          className="btn btn-primary position-absolute start-0 top-50 translate-middle-y z-3"
-          onClick={() => swiperRef.current?.slidePrev()}
-          style={{ zIndex: 10 }}
-        >
-          <i className="fa-solid fa-arrow-left"></i>
-        </button>
+            <div className='slide-content'>
+          <div className="position-relatives back-img">
+            <button
+              className="btn btn-primary position-absolute start-0 top-50 translate-middle-y z-3"
+              onClick={() => swiperRef.current?.slidePrev()}
+              style={{ zIndex: 10 }}
+            >
+              <i className="fa-solid fa-arrow-left"></i>
+            </button>
 
-        <Swiper
-          modules={[Autoplay, Navigation]}
-          spaceBetween={20}
-          slidesPerView={3}
-          autoplay={{ delay: 3000, disableOnInteraction: false }}
-          loop={true}
-          onSwiper={(swiper) => (swiperRef.current = swiper)}
-        >
-          {products.map((product) => (
-            <SwiperSlide key={product.id}>
-              <div className="card h-100 shadow-sm img-product">
-                {product.image ? (
-                  <img
-                    src={`http://54.252.242.180/public/${product.image}`}
-                    alt={product.name}
-                    style={{ width: '100%', height: 150, objectFit: 'cover' }}
-                  />
-                ) : (
-                  <span>No Image</span>
-                )}
-                <div className="card-body">
-                  <h5 className="card-title">{product.name}</h5>
-                  <p className="card-text text-muted">{product.description}</p>
-                  <div className="d-flex justify-content-between align-items-center">
-                    <span className="text-primary fw-bold">${product.price}</span>
-                    <button
-                      onClick={() => addToCart(product)}
-                      className="btn btn-primary"
-                    >
-                      Add to Cart
-                    </button>
+            <Swiper
+              modules={[Autoplay, Navigation]}
+              spaceBetween={20}
+              slidesPerView={1}
+              autoplay={{ delay: 3000, disableOnInteraction: false }}
+              loop={true}
+              onSwiper={(swiper) => (swiperRef.current = swiper)}
+            >
+              {slides.map((item) => (
+                <SwiperSlide key={item.id}>
+                  <div className="card h-100 shadow-sm img-item flex-slide">
+                    {item.image ? (
+                    <div className='image-slide'>
+                      <img
+                        src={`http://54.252.242.180/public/${item.image}`}
+                        alt={item.name}
+                        style={{ width: '100%', height: 150, objectFit: 'cover' }}
+                      />
+                      </div>
+                    ) : (
+                      <span>No Image</span>
+                    )}
+                    <div className="card-body desc-slide">
+                      <h5 className="card-title title-slide">{item.title}</h5>
+                      <p className='slide-desc'>{item.description}</p>
+                      <div className="d-flex justify-content-between align-items-center">
+                        <span className="text-primary fw-bold price-slide">${item.order}</span>
+                
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+                </SwiperSlide>
+              ))}
+            </Swiper>
 
-        <button
-          className="btn btn-primary position-absolute end-0 top-50 translate-middle-y z-3"
-          onClick={() => swiperRef.current?.slideNext()}
-          style={{ zIndex: 10 }}
-        >
-          <i className="fa-solid fa-arrow-right"></i>
-        </button>
+            <button
+              className="btn btn-primary position-absolute end-0 top-50 translate-middle-y z-3"
+              onClick={() => swiperRef.current?.slideNext()}
+              style={{ zIndex: 10 }}
+            >
+              <i className="fa-solid fa-arrow-right"></i>
+            </button>
+            </div>
       </div>
 
       <div className="container">
@@ -118,10 +130,7 @@ const HomeContent = ({ products, addToCart }) => {
                 <div className="d-flex justify-content-between align-items-center">
                   <span className="text-primary fw-bold">${product.price}</span>
                   <button
-                    onClick={(e) => {
-                      e.preventDefault(); // Prevent Link navigation
-                      addToCart(product);
-                    }}
+                      onClick={(e) => handleAddToCart(e, product)}
                     className="btn btn-primary"
                   >
                     Add to Cart

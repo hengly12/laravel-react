@@ -4,14 +4,19 @@ import { ShoppingCart, ArrowLeft } from 'lucide-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import http from "../http";
 import '../style/home.css';
+import Header from '../components/header';
+import Footer from '../components/footer';
+import { useAuth } from '../context/AuthContext';
 
 const ViewProduct = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
-  const [product, setProduct] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [quantity, setQuantity] = useState(1);
   const [cart, setCart] = useState([]);
+  const [products, setProducts] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const navigate = useNavigate();
+  const { user } = useAuth(); 
+  const { id } = useParams();
+  const [product, setProduct] = useState(null);
+  const [quantity, setQuantity] = useState(1);
 
   useEffect(() => {
     fetchProduct();
@@ -30,6 +35,39 @@ const ViewProduct = () => {
       });
   };
 
+  const handleQuantityChange = (e) => {
+    const value = parseInt(e.target.value);
+    if (value > 0) {
+      setQuantity(value);
+    }
+  };
+
+  const handleAddToCart = (e, product) => {
+    e.preventDefault(); 
+    if (user) {
+      addToCart(product);
+    } else {
+      navigate('/login-user');
+    }
+  };
+
+  useEffect(() => {
+    fetchAllProducts();
+  }, []);
+
+  const fetchAllProducts = () => {
+    setIsLoading(true);
+    http.get('/product')
+      .then(res => {
+        setProducts(res.data);
+        setIsLoading(false);
+      })
+      .catch(error => {
+        console.error("Error fetching products:", error);
+        setIsLoading(false);
+      });
+  };
+
   const addToCart = (product) => {
     const existingProduct = cart.find(item => item.id === product.id);
     if (existingProduct) {
@@ -40,13 +78,6 @@ const ViewProduct = () => {
       ));
     } else {
       setCart([...cart, { ...product, quantity: 1 }]);
-    }
-  };
-
-  const handleQuantityChange = (e) => {
-    const value = parseInt(e.target.value);
-    if (value > 0) {
-      setQuantity(value);
     }
   };
 
@@ -72,26 +103,13 @@ const ViewProduct = () => {
 
   return (
     <div className="container-fluid">
-      <header className="d-flex justify-content-between align-items-center mb-4 sha">
-        <h1 className="text-primary">Shop</h1>
-        <div className='d-flex gap-4'>
-          <Link to="/" className="">Home</Link>
-          <Link to="/shop" className="">Shop</Link>
-          <Link to="/contact" className="">Contact</Link>
-        </div>
-        <div className="position-relative">
-          <Link to="/product-detail" state={{ cart }}>
-            <button className="btn btn-outline-primary">
-              <ShoppingCart size={24} />
-              {totalCartItems > 0 && (
-                <span className="position-absolute top-0 start-100 translate-middle badge rounded-circle bg-danger">
-                  {totalCartItems}
-                </span>
-              )}
-            </button>
-          </Link>
-        </div>
-      </header>
+      <Header
+        cart={cart}
+        totalCartItems={totalCartItems}
+      />
+      
+      <div className="container-fluid">
+    
 
       <div className="container py-4">
         <button 
@@ -163,20 +181,13 @@ const ViewProduct = () => {
               Add to Cart
             </button>
             
-            {/* Additional product information can go here */}
-            <div className="mt-4">
-              <div className="card">
-                <div className="card-body">
-                  <h5 className="card-title">Product Details</h5>
-                  {product.category && <p className="mb-1"><strong>Category:</strong> {product.category}</p>}
-                  {product.sku && <p className="mb-1"><strong>SKU:</strong> {product.sku}</p>}
-                  {/* Add more product details as needed */}
-                </div>
-              </div>
-            </div>
+           
           </div>
         </div>
       </div>
+    </div>
+      
+      <Footer />
     </div>
   );
 };

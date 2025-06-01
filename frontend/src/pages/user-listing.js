@@ -1,7 +1,7 @@
 import { useState,useEffect } from "react";
 import http from "../http"
 import { Link } from "react-router-dom";
-export default function Home() {
+export default function UserListing() {
     const [users, setUsers] = useState([]);
 
     useEffect(()=>{
@@ -25,11 +25,11 @@ export default function Home() {
 
     return (
         <div>
-            <h2>Users listing ...</h2>
+            <h2>Users listing</h2>
             <table className="table">
                 <thead>
                     <tr>
-                        <th>Sno.</th>
+                        <th>No.</th>
                         <th>Name</th>
                         <th>Email</th>
                         <th>Action</th>

@@ -1,4 +1,3 @@
-// src/pages/HomePage.js
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import http from "../http";
@@ -6,14 +5,19 @@ import '../style/home.css';
 import Header from '../components/header';
 import Footer from '../components/footer';
 import HomeContent from '../components/content';
+import Chatbot from '../components/chat-bot';
+import ChatIcon from '../components/chat-icon'; // New chat icon component
 
 const HomePage = () => {
   const [cart, setCart] = useState([]);
   const [products, setProducts] = useState([]);
+  const [slides, setSlides] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   useEffect(() => {
     fetchAllProduct();
+    fetchAllSlide();
   }, []);
 
   const fetchAllProduct = () => {
@@ -25,6 +29,19 @@ const HomePage = () => {
       })
       .catch(error => {
         console.error("Error fetching products:", error);
+        setIsLoading(false);
+      });
+  };
+
+  const fetchAllSlide = () => {
+    setIsLoading(true);
+    http.get('/slides')
+      .then(res => {
+        setSlides(res.data);
+        setIsLoading(false);
+      })
+      .catch(error => {
+        console.error("Error fetching slides:", error);
         setIsLoading(false);
       });
   };
@@ -47,7 +64,6 @@ const HomePage = () => {
   };
 
   const totalCartItems = cart.reduce((total, item) => total + item.quantity, 0);
-  const totalCartValue = cart.reduce((total, item) => total + (item.price * item.quantity), 0);
 
   if (isLoading) {
     return (
@@ -59,17 +75,25 @@ const HomePage = () => {
 
   return (
     <div className="container-fluid">
-      <Header
-        cart={cart}
-        totalCartItems={totalCartItems}
-      />
-      
-      <HomeContent
-        products={products}
-        addToCart={addToCart}
-      />
-      
+      <Header cart={cart} totalCartItems={totalCartItems} />
+      <HomeContent products={products} slides={slides} addToCart={addToCart} />
       <Footer />
+
+      {/* Animated Chat Icon */}
+      <ChatIcon 
+        isChatOpen={isChatOpen} 
+        toggleChat={() => setIsChatOpen(!isChatOpen)} 
+      />
+
+      {/* Chatbot (visible only when toggled) */}
+      {isChatOpen && (
+        <Chatbot
+          products={products}
+          cart={cart}
+          addToCart={addToCart}
+          removeFromCart={removeFromCart}
+        />
+      )}
     </div>
   );
 };

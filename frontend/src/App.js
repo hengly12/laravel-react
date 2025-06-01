@@ -2,12 +2,12 @@ import React from 'react';
 import './App.css';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./style/admin.css";
-import { Routes, Route, BrowserRouter as Router } from "react-router-dom";
+import { Routes, Route, BrowserRouter as Router, Navigate } from "react-router-dom";
 
 // Import necessary components
 import HomePage from './components/home-page';
 import AdminLayout from './layout/layout'; // Create this layout component
-import Home from './pages/home';
+import UserListing from './pages/user-listing';
 import Create from './pages/create';
 import Edit from './pages/edit';
 import View from './pages/view';
@@ -22,6 +22,9 @@ import Shop from './components/shop';
 import Register from './components/register-user';
 import LoginUser from './components/login-user';
 import { AuthProvider } from './context/AuthContext';
+import CreateSlide from './pages/create-slide';
+import SlideListing from './pages/slide-listing';
+import Contact from './components/contact';
 
 function App() {
   return (
@@ -34,11 +37,15 @@ function App() {
             <Route path="shop" element={<Shop />} />
             <Route path="register" element={<Register />} />
             <Route path="login-user" element={<LoginUser />} />
+            <Route path="contact" element={<Contact />} />
             <Route path="/product/:id" element={<ViewProduct />} />
-            <Route path="/admin" element={<PrivateRoute />}>
+            <Route exact path="/admin" element={<PrivateRoute />}>
               <Route element={<AdminLayout />}>
-                <Route path="user-listing" element={<Home />} />
+                <Route index element={<Navigate to="slide-listing" />} />
+                <Route path="user-listing" element={<UserListing />} />
                 <Route path="create-user" element={<Create />} />
+                <Route path="create-slide" element={<CreateSlide />} />
+                <Route path="slide-listing" element={<SlideListing />} />
                 <Route path="product" element={<Product />} />
                 <Route path="listing-product" element={<ListingProduct />} />
                 <Route path="edit-product/:id" element={<EditProduct />} />
